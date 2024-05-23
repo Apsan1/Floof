@@ -5,7 +5,7 @@ const VideoComponent = () => {
     return (
         <div className="video-component w-[300px] h-[280px] bg-white shadow-md rounded-md flex flex-col">
             <div className="thumbnail w-full h-[180px] bg-gray-300 rounded-t-md">
-                <img src="https://via.placeholder.com/300" alt="thumbnail" className="w-full h-full object-cover rounded-md" />
+                <img src="" alt="thumbnail" className="w-full h-full object-cover rounded-md" />
             </div>
             <div className="info p-3">
                 <h1 className="text-lg font-semibold">Video Title</h1>
