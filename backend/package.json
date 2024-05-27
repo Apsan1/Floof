@@ -8,12 +8,17 @@
     "dependencies": {
         "@admin-bro/express": "^3.1.0",
         "@admin-bro/sequelize": "^1.2.1",
+        "@adminjs/express": "^6.1.0",
+        "@adminjs/sql": "^2.2.3",
         "admin-bro": "^4.0.1",
+        "adminjs": "^7.8.1",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "express": "^4.19.2",
+        "express-mysql-session": "^3.0.2",
+        "express-session": "^1.18.0",
         "mongoose": "^8.4.0",
         "mysql": "^2.18.1",
-        "mysql2": "^3.9.7"
+        "mysql2": "^3.9.8"
     }
 }

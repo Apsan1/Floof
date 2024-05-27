@@ -1,22 +1,17 @@
 const express = require('express');
-const AdminBro = require('admin-bro');
-const AdminBroExpress = require('@admin-bro/express');
-const AdminBroSequelize = require('@admin-bro/sequelize');
-const { sequelize } = require('./models'); // Your Sequelize instance
-
 const app = express();
+const bodyParser = require('body-parser');
+const usersRouter = require('./routes/users.js');
+const videosRouter = require('./routes/videos.js');
+const defaultRouter = require('./routes/index.js');
+
+app.use(bodyParser.json());
+
+// Use the users router
+app.use('/users', usersRouter);
+app.use('/videos', videosRouter);
+
 const port = process.env.PORT || 3000;
-
-AdminBro.registerAdapter(AdminBroSequelize);
-
-const adminBro = new AdminBro({
-    databases: [sequelize],
-    rootPath: '/admin',
-});
-
-const router = AdminBroExpress.buildRouter(adminBro);
-app.use(adminBro.options.rootPath, router);
-
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server running on port ${port}`);
 });

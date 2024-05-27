@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db');
 
 // Get all users
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM users');
         res.json(rows);
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new user
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
     const { name, email } = req.body;
     try {
         const [result] = await pool.query('INSERT INTO users (name, email) VALUES (?, ?)', [name, email]);
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a user by ID
-router.put('/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
     try {
@@ -59,7 +59,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a user by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const [result] = await pool.query('DELETE FROM users WHERE id = ?', [id]);
