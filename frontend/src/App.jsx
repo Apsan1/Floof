@@ -3,6 +3,7 @@ import './App.css';
 import Sidebar from './components/sidebar';
 import Navbar from './components/navbar';
 import VideoComponent from './components/VideoComponent';
+import fetchUsers from './api_fetch/users.jsx';
 
 const videosprops = [
   {
@@ -16,6 +17,7 @@ const videosprops = [
 ];
 
 function App() {
+  fetchUsers();
   return (
     <>
       <div className="layout h-screen flex flex-col overflow-hidden">
