@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+let apiUrl;
+
+function getApiUrl(url) {
+    apiUrl = url;
+    console.log(apiUrl);
+}
+
 const NoWhere = () =>{
     return (
         `
@@ -45,8 +52,13 @@ router.get('/', (req, res) => {
     res.send(NoWhere());
 });
 
+router.get('/apiurl', (req, res) => {
+    console.log(apiUrl);
+    res.json({ apiUrl });
+});
+
 router.get('*', (req, res) => {
     res.send(NoWhere());
 });
 
-module.exports = router;
+module.exports = { router, getApiUrl };

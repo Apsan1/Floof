@@ -1,6 +1,19 @@
+import main from "./api_url";
+const apiUrl = main();
+// Fetch all users
 export default async function fetchUsers() {
     try {
-        const response = await fetch('http://localhost:3000/users/all');
+        const response = await fetch(`${apiUrl}/users/all`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -9,9 +22,20 @@ export default async function fetchUsers() {
     }
 }
 
+// Fetch a single user by ID
 export async function fetchUser(id) {
     try {
-        const response = await fetch(`http://localhost:3000/users/${id}`);
+        const response = await fetch(`${apiUrl}/users/${id}`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -20,9 +44,20 @@ export async function fetchUser(id) {
     }
 }
 
+// Fetch videos of a user by ID
 export async function fetchUserVideos(id) {
     try {
-        const response = await fetch(`http://localhost:3000/users/${id}/videos`);
+        const response = await fetch(`${apiUrl}/users/${id}/videos`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {

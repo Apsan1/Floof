@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RiSearchEyeLine } from "react-icons/ri";
 import { fetchUser } from "../api_fetch/users";
+import apiUrl from "../api_fetch/api_url";
 
 const VideoComponent = ({ video }) => {
     const [username, setUsername] = useState('');
@@ -52,7 +53,7 @@ const VideoComponent = ({ video }) => {
                 onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
             >
                 <img 
-                    src={`http://localhost:3000/videos/thumbnail/${video.id}`}
+                    src={`${apiUrl}/videos/thumbnail/${video.id}`}
                     alt="thumbnail" 
                     className="block thumbnail-img w-full h-full object-cover rounded-md" 
                     id={`thumbnail-img-${video.id}`}
@@ -60,7 +61,7 @@ const VideoComponent = ({ video }) => {
                 />
                 <video 
                     id={`video-${video.id}`} 
-                    src={`http://localhost:3000/${video.link}`}
+                    src={`${apiUrl}/${video.link}`}
                     className="hidden w-full h-full object-cover rounded-md"
                     loop 
                     muted
@@ -107,12 +108,11 @@ const SmallVideoComponent = ({ video }) => {
                 onClick={onVideoClick}
             >
                 <img 
-                    src={`http://localhost:3000/videos/thumbnail/${video.id}`}
+                    src={`${apiUrl}/videos/thumbnail/${video.id}`}
                     alt="thumbnail" 
                     className="block thumbnail-img w-full h-full object-cover rounded-md" 
                     id={`thumbnail-img-${video.id}`}
                 />
-
             </div>
             <div className="info p-3">
                 <h1 className="text-lg font-semibold">{video.title}</h1>
@@ -124,9 +124,7 @@ const SmallVideoComponent = ({ video }) => {
             </div>
         </div>
     );
-
 };
-
 
 export default VideoComponent;
 export { SmallVideoComponent };

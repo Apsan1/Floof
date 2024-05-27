@@ -1,9 +1,21 @@
+import main from "./api_url";
+const apiUrl = main();
+// Fetch all videos
 export default async function fetchVideos() {
     try {
-        const response = await fetch('http://localhost:3000/videos/all');
+        const url = `${apiUrl}/videos/all`;
+        console.log(url);  // Verify the URL being requested
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -12,9 +24,20 @@ export default async function fetchVideos() {
     }
 }
 
+// Fetch a single video by ID
 export async function fetchVideo(id) {
     try {
-        const response = await fetch(`http://localhost:3000/videos/${id}`);
+        const response = await fetch(`${apiUrl}/videos/${id}`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -23,9 +46,20 @@ export async function fetchVideo(id) {
     }
 }
 
+// Fetch comments for a video by ID
 export async function fetchVideoComments(id) {
     try {
-        const response = await fetch(`http://localhost:3000/videos/${id}/comments`);
+        const response = await fetch(`${apiUrl}/videos/${id}/comments`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -34,23 +68,45 @@ export async function fetchVideoComments(id) {
     }
 }
 
+// Upload a new video
 export async function uploadVideofunc(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+
     try {
-        const response = await fetch('http://localhost:3000/videos/add', {
+        const response = await fetch(`${apiUrl}/videos/add`, {
             method: 'POST',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            },
             body: formData
         });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
+        return data;
     } catch (error) {
         console.error('Error uploading video:', error);
     }
 }
 
+// Fetch the thumbnail of a video by ID
 export async function getThumbnail(id) {
     try {
-        const response = await fetch(`http://localhost:3000/thumbnail/${id}`);
+        const response = await fetch(`${apiUrl}/thumbnail/${id}`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Add this header
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.blob();
         return URL.createObjectURL(data);
     } catch (error) {
