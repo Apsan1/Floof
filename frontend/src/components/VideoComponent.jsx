@@ -81,4 +81,52 @@ const VideoComponent = ({ video }) => {
     );
 };
 
+const SmallVideoComponent = ({ video }) => {
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        async function getUser() {
+            try {
+                const userdata = await fetchUser(video.user_id);
+                setUsername(userdata.username);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+
+        getUser();
+    }, [video.user_id]);
+
+    const onVideoClick = () => {
+        window.location.href = `/watch/${video.id}`;
+    };
+
+    return (
+        <div className="video-component w-full h-[150px] bg-white rounded-md flex flex-row p-2">
+            <div className="thumbnail w-[200px] h-[135px] bg-gray-300 rounded-md cursor-pointer"
+                onClick={onVideoClick}
+            >
+                <img 
+                    src={`http://localhost:3000/videos/thumbnail/${video.id}`}
+                    alt="thumbnail" 
+                    className="block thumbnail-img w-full h-full object-cover rounded-md" 
+                    id={`thumbnail-img-${video.id}`}
+                />
+
+            </div>
+            <div className="info p-3">
+                <h1 className="text-lg font-semibold">{video.title}</h1>
+                <p className="text-sm text-gray-500">{username}</p>
+                <div className="views flex items-center mt-2">
+                    <RiSearchEyeLine className="text-gray-500" />
+                    <p className="text-sm text-gray-500 ml-2">{video.view_count}</p>
+                </div>
+            </div>
+        </div>
+    );
+
+};
+
+
 export default VideoComponent;
+export { SmallVideoComponent };
