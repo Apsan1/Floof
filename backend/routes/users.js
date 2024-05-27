@@ -124,4 +124,20 @@ router.get('/:id/videos', async (req, res) => {
     }
 });
 
+// Get image of a user by ID
+router.get('/:id/image', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const [rows] = await pool.query('SELECT image_url FROM users WHERE id = ?', [id]);
+        if (rows.length > 0) {
+            res.sendFile(path.join(__dirname, '..', rows[0].image_url));
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+}); 
+
 module.exports = router;
