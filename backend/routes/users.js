@@ -74,4 +74,16 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
+// Get all videos for a user by ID
+router.get('/:id/videos', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const [rows] = await pool.query('SELECT * FROM videos WHERE user_id = ?', [id]);
+        res.json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
+
 module.exports = router;
