@@ -1,6 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
+const multer = require('multer');
+const path = require('path');
+
+// Configure multer storage for image and banner
+const imageStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'UserImages'); // Folder to save the uploaded images
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
+    }
+});
+
+const bannerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'UserBanners'); // Folder to save the uploaded banners
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
+    }
+});
+
+const uploadImage = multer({ storage: imageStorage });
+const uploadBanner = multer({ storage: bannerStorage });
 
 // Get all users
 router.get('/all', async (req, res) => {
@@ -31,9 +55,14 @@ router.get('/:id', async (req, res) => {
 
 // Create a new user
 router.post('/add', async (req, res) => {
-    const { name, email } = req.body;
+    const { name, email, password, banner_url, image_url } = req.body;
+    const created_at = new Date();
+    const updated_at = new Date();
     try {
-        const [result] = await pool.query('INSERT INTO users (name, email) VALUES (?, ?)', [name, email]);
+        const [result] = await pool.query(
+            'INSERT INTO users (name, email, password, created_at, updated_at, banner_url, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [name, email, password, created_at, updated_at, banner_url, image_url]
+        );
         res.status(201).json({ id: result.insertId, name, email });
     } catch (error) {
         console.error(error);
@@ -42,13 +71,22 @@ router.post('/add', async (req, res) => {
 });
 
 // Update a user by ID
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', uploadImage.single('image'), uploadBanner.single('banner'), async (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
+    const image_url = req.file ? `UserImages/${req.file.filename}` : null;
+    const banner_url = req.file ? `UserBanners/${req.file.filename}` : null;
+    const updated_at = new Date();
+
     try {
-        const [result] = await pool.query('UPDATE users SET name = ?, email = ? WHERE id = ?', [name, email, id]);
+        const updateQuery = `
+            UPDATE users 
+            SET name = ?, email = ?, updated_at = ?, image_url = COALESCE(?, image_url), banner_url = COALESCE(?, banner_url)
+            WHERE id = ?
+        `;
+        const [result] = await pool.query(updateQuery, [name, email, updated_at, image_url, banner_url, id]);
         if (result.affectedRows > 0) {
-            res.json({ id, name, email });
+            res.json({ id, name, email, image_url, banner_url });
         } else {
             res.status(404).send('User not found');
         }

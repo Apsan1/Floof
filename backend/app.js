@@ -1,16 +1,19 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
-app.use(cors());
-
+const path = require('path');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users.js');
 const videosRouter = require('./routes/videos.js');
 const defaultRouter = require('./routes/index.js');
 
+const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
-// Use the users router
+// Serve static files from the 'videos' directory
+app.use('/videos', express.static(path.join(__dirname, 'videos')));
+
+// Use the routers
 app.use('/users', usersRouter);
 app.use('/videos', videosRouter);
 app.use('/', defaultRouter);
