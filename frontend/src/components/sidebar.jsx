@@ -6,7 +6,9 @@ import { AiOutlinePlaySquare, AiOutlineClockCircle, AiOutlineUser } from "react-
 import { FaHeart } from "react-icons/fa";
 
 const Home = () => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2"
+        onClick={() => { window.location.href = '/'; }}
+    >
         <TiHome className="text-black-600 text-2xl" />
         <span>Home</span>
     </div>
