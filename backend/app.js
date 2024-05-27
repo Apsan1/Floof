@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 // Use the users router
 app.use('/users', usersRouter);
 app.use('/videos', videosRouter);
+app.use('/', defaultRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
