@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors());
+
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users.js');
 const videosRouter = require('./routes/videos.js');
