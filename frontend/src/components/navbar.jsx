@@ -32,7 +32,8 @@ function Navbar() {
     return (
         <div className="navbar w-full h-[60px] bg-white grid grid-cols-3 justify-between items-center px-3 py-2 top-0 z-50">
             <div className="image flex items-center justify-center grid grid-cols-2">
-                <img src="/logo/png/logo-black.png" className="h-[50px]" alt="logo" />
+                <img src="/logo/png/logo-black.png" className="h-[50px] cursor-pointer" alt="logo" 
+                onClick={() => window.location.href = "/"} />
             </div>
             <div className="searchbar flex items-center">
                 <input 
