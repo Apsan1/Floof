@@ -69,10 +69,10 @@ const WatchingVideo = () => {
     }, [video.user_id]);
 
     return (
-        <div className="watchingvideo w-full h-full flex flex-row gap-5">
-            <div className="viddescom w-full h-full flex flex-col px-2">
-                <div className="video-container w-full h-full flex flex-col p-3">
-                    <div className="video w-[800px] h-[450px] bg-gray-300 rounded-md shadow-md">
+        <div className="watchingvideo w-full h-full flex flex-col md:flex-row gap-5">
+            <div className="viddescom w-full h-full flex flex-col md:px-2">
+                <div className="video-container w-full h-full flex flex-col md:p-3">
+                    <div className="video w-full md:w-[800px] md:h-[450px] bg-gray-300 rounded-md shadow-md">
                         <video 
                             src={`${apiUrl}/${video.link}`}
                             id={`video-${video.id}`}
@@ -80,7 +80,7 @@ const WatchingVideo = () => {
                             className="block w-full h-full object-cover rounded-md"
                         />
                     </div>
-                    <div className="video-info mt-5">
+                    <div className="video-info mt-5 px-3 md:px-0">
                         <div className="titles">
                             <h1 className="text-2xl font-bold">{video.title}</h1>
                         </div>
@@ -96,30 +96,30 @@ const WatchingVideo = () => {
                                 <div className="user-info flex flex-col">
                                     <div className="name-status flex items-center gap-2 flex-row">
                                         <p className="text-lg font-semibold ml-2">{username}</p>
-                                        <p className="text-lg font-semibold">{TypeOfAccount}</p>
+                                        <p className="text-xs font-semibold">{TypeOfAccount}</p>
                                     </div>
                                     <div className="subcount flex items-center ml-2">
-                                        <p className="text-lg ml-2">{subcount} Subscribers</p>
+                                        <p className="md:text-lg text-xs md:ml-2">{subcount} <span className="text-xs">Subscribers</span></p>
                                     </div>
                                 </div>
                             </div>
                             <div className="stats-subs flex items-center gap-4">
-                                <div className="video-stats flex flex-row gap-5">
+                                <div className="video-stats flex flex-row md:gap-5 gap-2">
                                     <div className="views flex items-center justify-center flex-col">
-                                        <RiEyeFill className="text-3xl text-purple-300" />
-                                        <p className="text-lg">{video.view_count}</p>
+                                        <RiEyeFill className="md:text-3xl text-xl text-purple-300" />
+                                        <p className="md:text-lg text-sm">{video.view_count}</p>
                                     </div>
                                     <div className="likes flex items-center justify-center flex-col">
-                                        <RiHeartFill className="text-3xl text-red-600" />
-                                        <p className="text-lg">{video.like_count}</p>
+                                        <RiHeartFill className="md:text-3xl text-xl text-red-600" />
+                                        <p className="md:text-lg text-sm">{video.like_count}</p>
                                     </div>
                                     <div className="dislikes flex items-center justify-center flex-col">
-                                        <TfiBookmark className="text-3xl text-purple-400" />
-                                        <p className="text-lg">{video.dislike_count}</p>
+                                        <TfiBookmark className="md:text-3xl text-xl text-purple-400" />
+                                        <p className="md:text-lg text-sm">{video.dislike_count}</p>
                                     </div>
                                 </div>
                                 <div className="subscribe-btn">
-                                    <button className="w-44 h-12 bg-purple-300 text-white font-semibold rounded-md">Subscribe</button>
+                                    <button className="w-28 h-8 md:w-44 md:h-12 bg-purple-300 text-white font-semibold rounded-md">Subscribe</button>
                                 </div>
                             </div>
                         </div>

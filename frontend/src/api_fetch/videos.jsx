@@ -8,7 +8,6 @@ if (!apiUrl) {
 export default async function fetchVideos() {
     try {
         const url = `${apiUrl}/videos/all`;
-        console.log('Fetching videos from:', url);
         const response = await fetch(url,{
             method: 'GET',
             headers: {
