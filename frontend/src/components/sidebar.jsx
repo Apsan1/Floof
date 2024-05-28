@@ -4,6 +4,7 @@ import { TiHome } from "react-icons/ti";
 import { ImBookmark } from "react-icons/im";
 import { AiOutlinePlaySquare, AiOutlineClockCircle, AiOutlineUser } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
+import e from "cors";
 
 const Home = () => (
     <div className="flex items-center gap-2"
@@ -95,4 +96,64 @@ function Sidebar() {
     );
 }
 
-export default Sidebar;
+function HomeButton() {
+  return (
+    <button className="flex items-center gap-2">
+      <TiHome className="text-black-600 text-2xl" />
+    </button>
+  );
+}
+
+function PlayButton() {
+  return (
+    <button className="flex items-center gap-2">
+      <AiOutlinePlaySquare className="text-purple-600 text-2xl" />
+    </button>
+  );
+}
+
+function FireButton() {
+  return (
+    <button className="flex items-center gap-2">
+      <RiFireFill className="text-orange-500 text-2xl" />
+    </button>
+  );
+}
+
+function VaultButton() {
+  return (
+    <div className="flex items-center gap-2" onClick={() => {
+      const vaultitems = document.querySelector(".vaultitems");
+      vaultitems.classList.toggle("hidden");
+    }}>
+      <div className="vaultitems hidden">
+        <button className="flex items-center gap-2">
+          <ImBookmark className="text-blue-600 text-2xl" />
+        </button>
+        <button className="flex items-center gap-2">
+          <FaHeart className="text-red-600 text-2xl" />
+        </button>
+        <button className="flex items-center gap-2">
+          <AiOutlineClockCircle className="text-gray-600 text-2xl" />
+        </button>
+        <button className="flex items-center gap-2">
+          <AiOutlineUser className="text-gray-600 text-2xl" />
+        </button>
+      </div>
+      <p className="text-gray-600 text-xs">Your Vault</p>
+    </div>
+  );
+}
+
+function Bottombar() {
+  return (
+    <div className="border-2 bottombar fixed w-full h-[50px] bg-white grid grid-cols-4 gap-5 justify-between items-center px-3 py-2 bottom-0 z-50">
+        <HomeButton />
+        <PlayButton />
+        <FireButton />
+        <VaultButton />
+    </div>
+  );
+}
+
+export { Sidebar, Bottombar };

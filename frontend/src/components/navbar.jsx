@@ -30,16 +30,16 @@ function Navbar() {
     }, [hovered]);
 
     return (
-        <div className="navbar w-full h-[60px] bg-white grid grid-cols-3 justify-between items-center px-3 py-2 top-0 z-50">
-            <div className="image flex items-center justify-center grid grid-cols-2">
-                <img src="/logo/png/logo-black.png" className="h-[50px] cursor-pointer" alt="logo" 
+        <div className="navbar w-full h-[60px] bg-white flex flex-row gap-5 lg:gap-auto lg:grid lg:grid-cols-3 sm:justify-start lg:justify-between lg:items-center px-3 py-2 top-0 z-50">
+            <div className="image w-20 sm:w-20 md:w-[auto] flex items-center justify-start">
+                <img src="/logo/png/logo-black.png" className="h-[25px] lg:h-[50px] cursor-pointer" alt="logo" 
                 onClick={() => window.location.href = "/"} />
             </div>
             <div className="searchbar flex items-center">
                 <input 
                     type="text" 
                     placeholder={hovered ? `Search anything${dots}` : "Search"} 
-                    className="searchfield w-[500px] h-[40px] border border-gray-400 rounded-3xl px-5 focus:outline-none transition-all duration-300"
+                    className="searchfield w-60 sm:w-[200px] md:w-[500px] h-[40px] border border-gray-400 rounded-3xl px-5 focus:outline-none transition-all duration-300"
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                 />
