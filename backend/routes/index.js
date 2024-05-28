@@ -53,8 +53,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/apiurl', (req, res) => {
-    console.log(apiUrl);
-    res.json({ apiUrl });
+    res.json({ apiUrl: "https://healthy-muskox-shortly.ngrok-free.app" });
 });
 
 router.get('*', (req, res) => {
