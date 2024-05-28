@@ -1,5 +1,8 @@
-import main from "./api_url";
-const apiUrl = main();
+import { apiUrl, initializeApiUrl } from '../config.js';
+
+if (!apiUrl) {
+  await initializeApiUrl();
+}
 // Fetch all users
 export default async function fetchUsers() {
     try {
@@ -31,7 +34,6 @@ export async function fetchUser(id) {
                 'ngrok-skip-browser-warning': 'true', // Add this header
             }
         });
-
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

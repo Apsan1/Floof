@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { RiSearchEyeLine } from "react-icons/ri";
 import { fetchUser } from "../api_fetch/users";
-import apiUrl from "../api_fetch/api_url";
+import { apiUrl, initializeApiUrl } from '../config.js';
+
+if (!apiUrl) {
+  await initializeApiUrl();
+}
 
 const VideoComponent = ({ video }) => {
     const [username, setUsername] = useState('');
+    const [TypeofAccount, setTypeofAccount] = useState('');
 
     useEffect(() => {
         async function getUser() {
             try {
                 const userdata = await fetchUser(video.user_id);
+                setTypeofAccount(userdata.AccountType);
                 setUsername(userdata.username);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -47,6 +53,7 @@ const VideoComponent = ({ video }) => {
         window.location.href = `/watch/${video.id}`;
     };
 
+    const userimage = `${apiUrl}/users/${video.user_id}/image`;
     return (
         <div className="video-component w-[300px] h-[280px] bg-white shadow-md rounded-md flex flex-col">
             <div className="thumbnail w-full h-[180px] bg-gray-300 rounded-t-md"
@@ -71,12 +78,23 @@ const VideoComponent = ({ video }) => {
                 </video>
             </div>
             <div className="info p-3">
-                <h1 className="text-lg font-semibold">{video.title}</h1>
-                <p className="text-sm text-gray-500">{username}</p>
-                <div className="views flex items-center mt-2">
-                    <RiSearchEyeLine className="text-gray-500" />
-                    <p className="text-sm text-gray-500 ml-2">{video.view_count}</p>
+                <div className="title">
+                    <h1 className="text-lg font-semibold">{video.title}</h1>
+                </div>           
+                <div className="user-info flex flex-row gap-3">
+                    <div className="user-image w-8 h-8 rounded-full border-2 p-1">
+                        <img src={userimage} alt="user" className="w-full h-full rounded-full" />
+                    </div>
+                <div className="channel-info w-[50%]">
+                    <p className="text-sm text-gray-500 font-semibold">{username}</p>
+                    <p className="text-xs text-gray-500">{TypeofAccount}</p>
                 </div>
+                <div className="views flex w-[30%] justify-end mt-2">
+                    <RiSearchEyeLine className="text-gray-500" />
+                    <p className="text-sm text-gray-500">{video.view_count}</p>
+                </div>
+                </div>
+                
             </div>
         </div>
     );

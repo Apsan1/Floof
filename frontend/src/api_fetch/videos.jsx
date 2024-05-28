@@ -1,28 +1,32 @@
-import main from "./api_url";
-const apiUrl = main();
+import { apiUrl, initializeApiUrl } from '../config.js';
+
+if (!apiUrl) {
+  await initializeApiUrl();
+}
+
 // Fetch all videos
 export default async function fetchVideos() {
     try {
         const url = `${apiUrl}/videos/all`;
-        console.log(url);  // Verify the URL being requested
-        const response = await fetch(url, {
+        console.log('Fetching videos from:', url);
+        const response = await fetch(url,{
             method: 'GET',
             headers: {
                 'ngrok-skip-browser-warning': 'true', // Add this header
             }
         });
-
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Failed to fetch videos');
         }
-
-        const data = await response.json();
-        return data;
+        const videos = await response.json();
+        return videos;
     } catch (error) {
         console.error('Error fetching videos:', error);
+        // Handle the error gracefully, e.g., by returning an empty array
         return [];
     }
 }
+
 
 // Fetch a single video by ID
 export async function fetchVideo(id) {
@@ -102,12 +106,12 @@ export async function getThumbnail(id) {
                 'ngrok-skip-browser-warning': 'true', // Add this header
             }
         });
-
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
         const data = await response.blob();
+        console.log('Thumbnail fetched:', data);
         return URL.createObjectURL(data);
     } catch (error) {
         console.error('Error fetching thumbnail:', error);
