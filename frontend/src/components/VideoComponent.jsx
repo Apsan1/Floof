@@ -54,6 +54,7 @@ const VideoComponent = ({ video }) => {
     };
 
     const userimage = `${apiUrl}/users/${video.user_id}/image`;
+    console.log(userimage);
     return (
         <div className="video-component w-full md:w-[300px] md:h-[280px] bg-white md:shadow-md rounded-md flex flex-col">
             <div className="thumbnail w-full h-[180px] bg-gray-300 rounded-t-md"

@@ -5,7 +5,7 @@ export default async function getAPIURL() {
         console.log("API URL fetched:", data.apiUrl); // Print response to console
         return data.apiUrl;
     } catch (error) {
-        console.error('Error fetching API URL:', error);
+        console.error('Error fetching API URL 3333:', error);
         return "https://healthy-muskox-shortly.ngrok-free.app";
     }
 }
